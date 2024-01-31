@@ -3,13 +3,12 @@ import os
 import pandas as pd
 import pyarrow
 import fastparquet
-nuevo/games_API.parquet
 
 app = FastAPI()
 
-games = pd.read_parquet("games_API.parquet")
-reviews = pd.read_parquet("reviews_games_API.parquet")
-items = pd.read_parquet("items_games_API.parquet")
+games = pd.read_parquet("nuevo/games_API.parquet")
+reviews = pd.read_parquet("nuevo/reviews_games_API.parquet")
+items = pd.read_parquet("nuevo/items_games_API.parquet")
 
 
 # 1
