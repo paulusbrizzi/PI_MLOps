@@ -5,10 +5,18 @@ import pandas as pd
 
 app = FastAPI()
 
-##### 1
-# Cantidad de items y porcentaje de contenido Free por año según empresa desarrolladora.
+# 1
 @app.get("/developer")
 def developer(desarrollador : str):
+    """
+    Función developer(desarrollador)
+
+    Parámetro
+    ---------
+    Recibe nombre de empresa desarrolladora como String
+    
+    Devuelve por año, cantidad de ítems (juegos) y porcentaje de contenido gratuito.
+    """
 # importamos la tabla de la función
     developer = pd.read_csv("data_api/developer.csv")
 # filtramos por developer
@@ -23,15 +31,23 @@ def developer(desarrollador : str):
 # volvemos a ordenar de manera descendente por año
     agrupado = agrupado.sort_values(by='Año', ascending=False)
 # formateamos el resultado
-    diccionario_resultado = agrupado.to_dict(orient='records')
+    out = agrupado.to_dict(orient='records')
 
-    return diccionario_resultado
+    return out
 
 
-##### 2
-# Cantidad de dinero gastado por el usuario, el porcentaje de recomendación y cantidad de items.
+# 2
 @app.get("/userdata")
 def userdata(user_id : str):
+    """
+    Función userdata(user_id)
+
+    Parámetro
+    ---------
+    Recibe id del usuario como String
+    
+    Devuelve total del dinero gastado, porcentaje de recomendación positivo y cantidad de ítems adquiridos.
+    """
 # importamos la tabla de la función
     userdata = pd.read_csv("data_api/userdata.csv")
 #filtramos por usuario
@@ -48,16 +64,24 @@ def userdata(user_id : str):
     userdata.columns = ['Usuario', 'Items', 'Porcentaje de recomendación', "Dinero gastado"]
     userdata = userdata[['Usuario', 'Dinero gastado', 'Porcentaje de recomendación', 'Items']]
 # transformamos el resultado
-    diccionario_resultado = userdata.to_dict(orient='records')
+    out = userdata.to_dict(orient='records')
 
-    return diccionario_resultado
+    return out
 
 
 
-##### 3
-# Usuario que acumula más horas jugadas para el género dado y lista de la acumulación de horas jugadas por año de lanzamiento.
+# 3
 @app.get("/user_for_genre")
 def user_for_genre(genero : str):
+    """
+    Función user_for_genre(genero)
+
+    Parámetro
+    ---------
+    Recibe el género como String
+    
+    Devuelve el usuario con más horas jugadas en el género dado, y una lista acumulación de horas jugadas por años de lanzamiento.
+    """
 # importamos la primera tabla
     u1 = pd.read_csv("data_api/user_for_genre1.csv")
 # filtramos por género
@@ -79,10 +103,18 @@ def user_for_genre(genero : str):
     return out
 
 
-##### 4
-# Top 3 de desarrolladores con juegos más recomendados por usuarios para el año dado.
+#4
 @app.get("/best_developer_year")
 def best_developer_year(año : int):
+    """
+    Función best_developer_year(año)
+
+    Parámetro
+    ---------
+    Recibe el año como Int
+    
+    Devuelve las 3 empresas desarrolladoras con juegos más recomendados por los usuarios según el año dado.
+    """
 # importamos la tabla a usar
     bdy = pd.read_csv("data_api/best_developer_year.csv")
 # nos quedamos con las columnas de utilidad
@@ -94,16 +126,23 @@ def best_developer_year(año : int):
     Y = filtro.iloc[1]
     Z = filtro.iloc[2]
 # formateamos la salida
-    lista_resultado = [{"Puesto 1" : f"{X}"}, {"Puesto 2" : f"{Y}"},{"Puesto 3" : f"{Z}"}]
+    out = [{"Puesto 1" : f"{X}"}, {"Puesto 2" : f"{Y}"},{"Puesto 3" : f"{Z}"}]
 
-    return lista_resultado
+    return out
 
 
-##### 5
-# diccionario con el nombre del desarrollador como llave y una lista con la cantidad total de registro
-# de reseñas como valor positivo o negativo.
+# 5
 @app.get("/developer_reviews_analysis")
 def developer_reviews_analysis(desarrollador : str):
+    """
+    Función developer_reviews_analysis(desarrollador)
+
+    Parámetro
+    ---------
+    Recibe el nombre de la empresa desarrolladora como String.
+    
+    Devuelve el nombre del desarrollador como llave, y una lista con la cantidad de reseñas negativas y positivas totales.
+    """
 # importamos la tabla a usar
     dra = pd.read_csv("data_api/developer_reviews_analysis.csv")
 # nos quedamos con las columnas de utilidad
@@ -116,4 +155,15 @@ def developer_reviews_analysis(desarrollador : str):
 # creamos el diccionario de salida
     out = {f'{desarrollador}' : [f"Negative = {neg}", f"Positive = {pos}"]}
 
+    return out
+
+
+# 6
+@app.get("/recomendacion_juego")
+def recomendacion_juego(id_de_producto : int):
+    rec = pd.read_csv("data_api/recomendaciones.csv")
+    rec = rec["recomendaciones"][rec["item_id"] == id_de_producto].iloc[0]
+    rec = eval(rec)
+    out = {f"ID del Juego: {id_de_producto}": rec}
+    
     return out
