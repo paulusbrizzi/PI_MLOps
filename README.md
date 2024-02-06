@@ -7,6 +7,7 @@
 ### Sobre el proyecto
 A lo largo de este proyecto se ha trabajado sobre 3 tablas con datos crudos provenientes del sector australiano de la plataforma online de juegos Steam. Respectivamente, información relativa a Juegos (tags, categorías, precio, entre otros), Reviews (fecha, si recomendó, juego, opinión escrita, entre otros) e Items (usuario, juego, tiempo total jugado, entre otros).
 [Diccionario de los datos crudos](https://shorturl.at/qst47)
+
 El objetivo del proyecto consiste en realizar una API que facilite la consulta de ciertos datos definidos y formateados, entre ellos el resultado de un modelo de machine learning que recomienda 5 juegos similares a partir del id de un juego inicial.
 
 ### Desarrollo: Etapas
