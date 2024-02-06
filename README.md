@@ -27,10 +27,15 @@ Mediante una función se creó una tabla con 5 juegos recomendados según la col
 [Visite la API](https://pi-mlops-reb1.onrender.com/docs) y realice las consultas
 
 Valores de entrada de ejemplo según función:
+
 **developer:** valve, funcom
+
 **userdata:** bigodo
+
 **userforgenre:** action, education
+
 **best_developer_year:** 2012, 2014
+
 **developer_reviews_analysis:** 63200
 
 ### Video
