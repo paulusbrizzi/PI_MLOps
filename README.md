@@ -33,7 +33,7 @@ Valores de entrada de ejemplo según función:
 **best_developer_year:** 2012, 2014
 **developer_reviews_analysis:** 63200
 
-### Cómo usar
+### Video
 [Video API en funcionamiento](https://youtu.be/I69cK6loEhg)
 
 ### Autoría
